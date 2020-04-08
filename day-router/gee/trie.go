@@ -17,21 +17,34 @@ func (n *node) String() string {
 }
 
 func (n *node) insert(pattern string, parts []string, height int) {
+	fmt.Println(n)
 	if len(parts) == height {
 		n.pattern = pattern
+		fmt.Println(n)
+		fmt.Println("add node pattern:",n.pattern)
 		return
 	}
 
+	fmt.Println("height:",height)
+	fmt.Println("insert parts:",parts)
 	part := parts[height]
+
+	fmt.Println("part:",part)
 	child := n.matchChild(part)
+	fmt.Println("children",n.children)
+	fmt.Println("child",child)
 	if child == nil {
 		child = &node{part: part, isWild: part[0] == ':' || part[0] == '*'}
+		fmt.Println(child)
 		n.children = append(n.children, child)
 	}
+	fmt.Println("children",n.children)
 	child.insert(pattern, parts, height+1)
 }
 
 func (n *node) search(parts []string, height int) *node {
+	fmt.Println("search parts:",parts)
+	fmt.Println("n.part:",n.part)
 	if len(parts) == height || strings.HasPrefix(n.part, "*") {
 		if n.pattern == "" {
 			return nil
@@ -40,7 +53,10 @@ func (n *node) search(parts []string, height int) *node {
 	}
 
 	part := parts[height]
+	fmt.Println("n",n)
+	fmt.Println("match before children:",n.children)
 	children := n.matchChildren(part)
+	fmt.Println("children:",children)
 
 	for _, child := range children {
 		result := child.search(parts, height+1)
