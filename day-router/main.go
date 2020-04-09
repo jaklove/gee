@@ -33,7 +33,9 @@ func main() {
 //3.在trie.go中定义node的结构体，具体有insert、search、matchChild、matchChildren
 
 
-//2.
+//addRoute生命周期:
+//首先对自定义的路由的解析，形成例如[hello,:gee]这种切片，method+'-'+ pattern作为key,r.roots是map结构，如果当前r.roots[key]是为空，则
+//初始化node节点到r.roots[key] = &node{}
 
 
 
