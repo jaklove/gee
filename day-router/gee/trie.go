@@ -38,7 +38,7 @@ func (n *node) insert(pattern string, parts []string, height int) {
 		fmt.Println(child)
 		n.children = append(n.children, child)
 	}
-	fmt.Println("children",n.children)
+	fmt.Println("n指针",n.children)
 	child.insert(pattern, parts, height+1)
 }
 
@@ -55,6 +55,7 @@ func (n *node) search(parts []string, height int) *node {
 	part := parts[height]
 	fmt.Println("n",n)
 	fmt.Println("match before children:",n.children)
+	fmt.Println("part height:",part)
 	children := n.matchChildren(part)
 	fmt.Println("children:",children)
 

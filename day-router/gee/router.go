@@ -45,6 +45,7 @@ func (r *router) addRoute(method string, pattern string, handler HandlerFunc) {
 	}
 	//子节点进行insert操作
 	r.roots[method].insert(pattern, parts, 0)
+	fmt.Println("roots:",r.roots[method].children[0].children)
 	r.handlers[key] = handler
 }
 
@@ -55,6 +56,9 @@ func (r *router) getRoute(method string, path string) (*node, map[string]string)
 	fmt.Println("r",r)
 	fmt.Println("method",method)
 	root, ok := r.roots[method]
+
+	fmt.Println("root:",root)
+
 	fmt.Println("root children:",root.children)
 
 	if !ok {
@@ -98,6 +102,7 @@ func (r *router) getRoutes(method string) []*node {
 
 func (r *router) handle(c *Context) {
 	fmt.Println("接管路由的第一阶段")
+	fmt.Println("path:", c.Path)
 	n, params := r.getRoute(c.Method, c.Path)
 	fmt.Println("handle n:",n)
 	fmt.Println("handle params:",params)
